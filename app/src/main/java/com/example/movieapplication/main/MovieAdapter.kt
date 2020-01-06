@@ -40,6 +40,11 @@ class MovieAdapter(private val movies: List<Movie>, private val onClick: (Movie)
         fun bind(movie: Movie) {
             itemView.tvTitle.text = movie.title
             itemView.tvRating.text = movie.rating
+            if (movie.notification != null) {
+                itemView.ivNotification.setImageDrawable(context.getDrawable(R.drawable.ic_notifications_active_black_24dp))
+            } else {
+                itemView.ivNotification.setImageDrawable(context.getDrawable(R.drawable.ic_notifications_black_24dp))
+            }
         }
     }
 

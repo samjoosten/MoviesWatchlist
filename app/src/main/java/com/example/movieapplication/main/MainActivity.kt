@@ -2,6 +2,10 @@ package com.example.movieapplication.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -38,13 +42,35 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager?
         rvMovies.adapter = movieAdapter
 
+        val sortOpts = resources.getStringArray(R.array.sortOpts)
+
+        val sortSpinner = findViewById<Spinner>(R.id.spnSort)
+
+        if (sortSpinner != null) {
+            val adapter = ArrayAdapter(this,
+                R.layout.spinner_item, sortOpts)
+            sortSpinner.adapter = adapter
+
+            sortSpinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, id: Long) {
+                    onSortClick(sortOpts[position])
+                }
+
+            }
+        }
+
         fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             startActivity(intent)
         }
 
         btnDelete.setOnClickListener { onDeleteMoviesClick() }
-        btnSort.setOnClickListener { onSortClick()   }
+//        btnSort.setOnClickListener { onSortClick()   }
 
     }
 
@@ -86,10 +112,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onSortClick() {
+    private fun onSortClick(sortProperty: String) {
         mainViewModel.allMovies.observe(this, Observer { movieList ->
             if (movieList != null) {
-                val sortedMovies = movieList.sortedWith(compareBy(Movie::rating))
+                var sortedMovies = movieList
+                if (sortProperty == "Rating") {
+                    sortedMovies = movieList.sortedWith(compareBy(Movie::rating))
+                } else if (sortProperty == "Title") {
+                    sortedMovies = movieList.sortedWith(compareBy(Movie::title))
+                }
                 movies.clear()
                 movies.addAll(sortedMovies)
                 movieAdapter.notifyDataSetChanged()

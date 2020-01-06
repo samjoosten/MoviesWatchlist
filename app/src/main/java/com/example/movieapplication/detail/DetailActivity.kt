@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.example.movieapplication.R
 import com.example.movieapplication.model.Movie
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_detail.fab
+import kotlinx.android.synthetic.main.activity_detail.btnConfirm
 import kotlinx.android.synthetic.main.activity_detail.toolbar
 import kotlinx.android.synthetic.main.activity_detail.view.*
+import kotlinx.android.synthetic.main.content_add.*
 import kotlinx.android.synthetic.main.content_detail.*
 import java.lang.Exception
 import java.util.*
@@ -39,7 +41,7 @@ class DetailActivity : AppCompatActivity() {
             movieType.setText(movie.type)
             movieNotes.setText(movie.notes)
 
-            fab.setOnClickListener { movie.id?.let { it1 -> onUpdateClick(it1) } }
+            btnConfirm.setOnClickListener { movie.id?.let { it1 -> onUpdateClick(it1) } }
             btnDelete.setOnClickListener { onDeleteClick(movie) }
         }
 
@@ -55,6 +57,9 @@ class DetailActivity : AppCompatActivity() {
                 Date(movieReminder.text.toString()),
                 movieNotes.text.toString()
             ))
+        val snackbar = Snackbar.make(detailContent, getString(R.string.item_updated,
+            movieTitle.text.toString()), Snackbar.LENGTH_LONG)
+        snackbar.show()
     }
 
     private fun onDeleteClick(movie: Movie) {

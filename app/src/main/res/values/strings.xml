@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movie/Series Watchlist</string>
     <string name="action_settings">Settings</string>
+    <string name="sort_text">Sort by:</string>
     <string name="title_activity_add">Add Movie/Series</string>
     <string name="title_activity_detail">Movie Details</string>
     <string name="hint_title">Title</string>
@@ -15,10 +16,18 @@
     <string name="item_release">Release: %s</string>
 
     <string name="item_deleted">Successfully deleted %s</string>
+    <string name="item_added">Successfully added %s</string>
+    <string name="item_updated">Successfully updated %s</string>
     <string name="undo">UNDO</string>
     <string name="hint_type">Movie/Series...</string>
     <string name="hint_rating">IMDB Rating...</string>
     <string name="hint_notes">Additional Notes</string>
     <string name="hint_reminder">Reminder...</string>
     <string name="sort">Sorting list</string>
+    <string name="btn_confirm_text">Confirm</string>
+
+    <string-array name="sortOpts">
+        <item>Title</item>
+        <item>Rating</item>
+    </string-array>
 </resources>

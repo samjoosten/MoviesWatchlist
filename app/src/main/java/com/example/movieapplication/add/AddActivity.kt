@@ -8,9 +8,11 @@ import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProviders
 import com.example.movieapplication.R
 import com.example.movieapplication.model.Movie
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.content_add.*
 import java.util.*
@@ -74,6 +76,16 @@ class AddActivity : AppCompatActivity() {
                         etNotes.text.toString()
                     )
                 )
+
+                val snackbar = Snackbar.make(addContent, getString(R.string.item_added,
+                    etMovieTitle.text.toString()), Snackbar.LENGTH_LONG)
+                snackbar.show()
+
+                etMovieTitle.text?.clear()
+                etRating.text?.clear()
+                etType.text?.clear()
+                etReminder.text?.clear()
+                etNotes.text?.clear()
 
 
 
